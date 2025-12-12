@@ -115,9 +115,6 @@ df_sample = df_sample.select("clean_text", "sentiment_label")
 pdf = df_sample.toPandas()
 
 
-from sklearn.model_selection import train_test_split
-from sklearn.feature_extraction.text import TfidfVectorizer
-
 X_train_text, X_test_text, y_train, y_test = train_test_split(
     pdf["clean_text"], pdf["sentiment_label"], test_size=0.2, random_state=42
 )

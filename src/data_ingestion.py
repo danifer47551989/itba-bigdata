@@ -335,7 +335,7 @@ def gold_ingestion():
             mlflow.log_metric(f"label_ratio_{label}", ratio)
 
         # Average review length
-        from pyspark.sql import functions as F
+        # Use top-level `F` imported at module scope instead of re-importing here
         avg_length = df_gold.select(F.avg(F.length("clean_text"))).first()[0]
         mlflow.log_metric("avg_review_length", float(avg_length))
 
