@@ -6,6 +6,7 @@ import pandas as pd
 from sklearn.metrics import f1_score, precision_score, recall_score
 from pathlib import Path
 from typing import Dict, Any
+from pyspark.sql import SparkSession
 
 # MODELS
 from sklearn.linear_model import LogisticRegression
@@ -13,6 +14,8 @@ from sklearn.svm import LinearSVC
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.svm import SVC
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 # Paths and constants
 DATA_PATH = "/Volumes/workspace/sentiment_analysis/gold"
@@ -26,6 +29,12 @@ mlflow.set_registry_uri("databricks-uc")
 mlflow.set_tracking_uri("databricks")
 
 # Load data
+# Ensure a SparkSession exists (Databricks provides `spark` by default). Create one otherwise.
+try:
+    spark
+except NameError:
+    spark = SparkSession.builder.appName("itba-bigdata").getOrCreate()
+
 print(f"Loading parquet from {DATA_PATH}")
 df = spark.read.parquet(str(DATA_PATH))
 print(f"Rows: {df.count()}, Columns: {len(df.columns)}")

@@ -45,6 +45,11 @@ Registrado en MLflow Tracking:
 ## Selección del Modelo Final
 La selección se basó en:
 
+- F1 Macro como métrica principal.
+- Robustez del modelo ante clases desbalanceadas.
+- Eficiencia dentro de las restricciones de Databricks Serverless.
+- Estabilidad del entrenamiento en grandes volúmenes de datos vectorizados.
+
 ## CI / GitHub Actions
 
 Agregué varios workflows en la rama `feature/git_actions` para ayudar con el desarrollo y las revisiones:

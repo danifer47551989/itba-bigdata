@@ -3,9 +3,26 @@ import logging
 import datetime
 import json
 import pyspark.sql.functions as F
-from pyspark.sql.types import *
+from pyspark.sql.types import (
+    StructType,
+    StructField,
+    StringType,
+    IntegerType,
+    DateType,
+    FloatType,
+    TimestampType,
+    BooleanType,
+)
 from pyspark.sql import DataFrame
 from pyspark.sql.window import Window
+
+# If running outside Databricks, create a SparkSession only if `spark` is not already defined.
+try:
+    spark
+except NameError:
+    from pyspark.sql import SparkSession
+
+    spark = SparkSession.builder.appName("itba-bigdata").getOrCreate()
 
 SOURCE_PATH = "/Volumes/workspace/sentiment_analysis/raw"
 BRONZE_PATH = "/Volumes/workspace/sentiment_analysis/bronze"
